@@ -1,9 +1,11 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"net"
 
+	word "github.com/w-huaqiang/myPackage/fileMgt"
 	ipparse "github.com/w-huaqiang/myPackage/netMgt"
 )
 
@@ -23,6 +25,27 @@ func testIPparse() {
 
 }
 
+func testword() {
+
+	flag.Parse()
+	argument := flag.Args()
+	if len(argument) == 0 {
+		fmt.Printf("useage: textcont file\n")
+		return
+	}
+
+	a, err := word.TextCount(argument[0])
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		for i, key := range a.Keys {
+			fmt.Printf("%s:%d\n", key, a.Values[i])
+		}
+	}
+
+}
+
 func main() {
-	testIPparse()
+	//testIPparse()
+	testword()
 }
