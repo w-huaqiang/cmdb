@@ -34,13 +34,19 @@ func testword() {
 		return
 	}
 
-	a, err := word.TextCount(argument[0])
+	count := 0
+	a, err := word.EngCount(argument[0])
 	if err != nil {
 		fmt.Println(err)
 	} else {
 		for i, key := range a.Keys {
-			fmt.Printf("%s:%d\n", key, a.Values[i])
+			count++
+			fmt.Printf("%s-->%d\n", key, a.Values[i])
+			if count > 10 {
+				return
+			}
 		}
+
 	}
 
 }

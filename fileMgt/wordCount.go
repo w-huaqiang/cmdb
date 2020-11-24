@@ -5,6 +5,7 @@ import (
 	"io"
 	"os"
 	"sort"
+	"strings"
 )
 
 // ValStruct is a struct
@@ -49,6 +50,52 @@ func TextCount(file string) (ValStruct, error) {
 				words[string(x)] = num
 			} else {
 				words[string(x)] = 1
+			}
+		}
+
+	}
+
+	wordStruct := toStruct(words)
+	sort.Sort(wordStruct)
+
+	return *wordStruct, nil
+
+}
+
+//EngCount is function
+func EngCount(file string) (ValStruct, error) {
+
+	var words map[string]int
+
+	ret := ValStruct{
+		Keys:   nil,
+		Values: nil,
+	}
+	words = make(map[string]int)
+
+	f, err := os.Open(file)
+	if err != nil {
+		return ret, err
+	}
+
+	defer f.Close()
+
+	r := bufio.NewReader(f)
+	for {
+		line, err := r.ReadString('\n')
+		if err == io.EOF {
+			break
+		} else if err != nil {
+			return ret, err
+		}
+
+		for _, x := range strings.Split(string(line), " ") {
+
+			if num, ok := words[x]; ok {
+				num++
+				words[string(x)] = num
+			} else {
+				words[x] = 1
 			}
 		}
 
