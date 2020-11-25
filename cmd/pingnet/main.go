@@ -47,6 +47,7 @@ func pingnet(s string, t time.Duration, c int) {
 	}
 	pinger.Timeout = t
 	pinger.Count = c
+	pinger.SetPrivileged(true)
 	err = pinger.Run() // Blocks until finished.
 	if err != nil {
 		panic(err)
@@ -66,6 +67,7 @@ func main() {
 	//netWorkcidr := flag.String("n", "None", "The subnet like 3.1.20.0/24")
 	timeout := flag.Duration("t", time.Second*3, "timeout of ping")
 	count := flag.Int("c", 2, "the count of ping per time")
+
 	flag.Usage = func() {
 		fmt.Println(usage)
 	}
