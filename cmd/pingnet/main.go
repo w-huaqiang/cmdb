@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/go-ping/ping"
-	ipparse "github.com/w-huaqiang/myPackage/netMgt"
+	ipparse "github.com/w-huaqiang/wPackage/netMgt"
 )
 
 var wg sync.WaitGroup
